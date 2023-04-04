@@ -1,0 +1,6 @@
+# :mega: ¡Streamlit: Concurso en Español!
+
+Aplicación generada para participar en el Concurso de Streamlit en Español. 
+
+Esta aplicación es una herramienta de análisis de datos construida con Streamlit para el concurso de Streamlit en Español 2023. La aplicación está diseñada para analizar un conjunto de datos utilizando el Análisis de Componentes Principales (PCA) y buscar modelos con las componentes principales generadas.
+

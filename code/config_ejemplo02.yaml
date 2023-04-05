@@ -1,0 +1,58 @@
+# CONFIGURACIÓN DEL PROYECTO
+
+project:
+  author: 'Ibon Martínez-Arranz'
+  path: '../data/ejemplo02.xlsx'
+  cmap: 'seismic' #https://matplotlib.org/stable/gallery/color/colormap_reference.html
+  data:
+    sheet_name: 'data'
+    index_colname: ID
+  variable:
+    name: GRUPO
+    clean_name: Grupo (A/B)
+    grupo01:
+        name: 'Grupo A'
+        clean_name: 'Grupo A'
+        color: '#22693C'
+    grupo02:
+        name: 'Grupo B'
+        clean_name: 'Grupo B'
+        color: '#DD3C22' 
+
+# CONFIGURACIÓN         
+        
+model:
+  n_splits: 2
+  n_max_components: 10
+
+# PARÁMETROS PARA LA BÚSQUEDA DE UN MODELO DE REGRESIÓN LOGÍSTICA ÓPTIMO
+    
+parameters:
+  'LogisticRegression':
+    'random_state': 
+      - 42
+    'max_iter':
+      - 1000
+    'solver':
+      - 'newton-cg'
+      - 'newton-cholesky'
+      - 'lbfgs'
+      - 'liblinear'
+      - 'sag' 
+      - 'saga'
+    'penalty':
+      - 'none'
+      - 'elasticnet'
+      - 'l1'
+      - 'l2'
+    'fit_intercept':
+      - True
+      - False
+    'C':
+      - 0.001
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+      - 100
+

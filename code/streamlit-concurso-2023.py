@@ -12,15 +12,11 @@ import datetime
 import time
 
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.preprocessing import FunctionTransformer
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, FunctionTransformer
 from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.pipeline import Pipeline
 
-from sklearn.model_selection import KFold, StratifiedKFold
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import StratifiedKFold, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 
 # https://github.com/rasbt/watermark/blob/master/watermark/watermark.py
@@ -28,7 +24,9 @@ from watermark import watermark
 
 import yaml
 
-font_css = """
+# ESTILO DE LA APLICACIÓN
+
+CSS_STYLE_ = """
 <style>
 
 MainMenu {
@@ -66,6 +64,11 @@ h4 {
     background-color: #0000CC;
 }
 
+button[data-baseweb="tab"] {
+    font-size: 18px;
+    color: #FE4A4A;
+}
+
 </style>
 
 <link rel="stylesheet" href="https://m axcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -73,7 +76,7 @@ h4 {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 """
 
-# FUNCTIONS
+# FUNCIONES
 
 def pca_plot(df, data, project_config):
     
@@ -130,8 +133,6 @@ def pcamodels(data,
             verbose    = 0,
             return_train_score = True
         )
-    
-    #st.write(data[project_config['project']['variable']['name']])
 
     grid.fit(X = data[profile.columns], 
              y = data[project_config['project']['variable']['name']])
@@ -171,7 +172,7 @@ def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
 
-# SIDEBAR CONFIGURATION
+# BARRA LATERAL CONFIGURACIÓN
 
 f = open("about.txt", "r")
 
@@ -181,14 +182,13 @@ st.set_page_config(
      layout = "wide",
      initial_sidebar_state = "expanded",
      menu_items = {
-         'Get Help': 'https://www.extremelycoolapp.com/help',
-         'Report a bug': "https://www.extremelycoolapp.com/bug",
+         'Get Help': 'https://github.com/imarranz/streamlit-concurso-2023',
          'About': f.read()
      }
 )                                    
 f.close()
 
-st.write(font_css, unsafe_allow_html = True)
+st.write(CSS_STYLE_, unsafe_allow_html = True)
 
 #st.sidebar.title("Análisis de Componentes Principales y Modelización")
 st.sidebar.image("../images/logo-streamlit-concurso-2023.png")
@@ -198,15 +198,14 @@ El Análisis de Componentes Principales (PCA) es una poderosa técnica estadíst
 
 st.sidebar.markdown('<h4 class="badge badge-pill badge-primary"> <i class="bi bi-github"> imarranz </i></h4>', unsafe_allow_html=True)
 
-
 st.title(":bar_chart: Análisis de Componentes Principales y Modelización")
 
 st.markdown("""
-EL Análisis de Componentes Principales (PCA) es una valiosa técnica de preprocesamiento en el modelado predictivo. Puede ayudar en el análisis de datos exploratorios y la detección de valores atípicos, y también reduce la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Además, PCA se usa comúnmente en conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede generar multicolinealidad e inestabilidad en los modelos de regresión. La multicolinealidad infla la varianza de las estimaciones de los parámetros, lo que puede hacer que sean estadísticamente insignificantes cuando deberían ser significativos (Kerns 2010). En las siguientes secciones, utilizaremos PCA como un paso de preprocesamiento y lo combinaremos con un modelo de regresión logística regularizado en L2 para abordar un problema de clasificación.
+EL Análisis de Componentes Principales (PCA) es una valiosa técnica de preprocesamiento en el modelado predictivo. Puede ayudar en el análisis de datos exploratorios y la detección de valores atípicos, y también reduce la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Además, PCA se usa comúnmente en conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede generar multicolinealidad e inestabilidad en los modelos de regresión. La multicolinealidad infla la varianza de las estimaciones de los parámetros, lo que puede hacer que sean estadísticamente insignificantes cuando deberían ser significativos (Kerns 2010). En esta aplicación, utilizaremos PCA como un paso de preprocesamiento y lo combinaremos con un modelo de regresión logística para abordar un problema de clasificación.
 
 ## Modelo PCA
 
-Los modelos PCA se usan comúnmente para dos propósitos principales: 1) para reducir las dimensiones de un conjunto de datos para facilitar el análisis y 2) para identificar de manera eficiente las fuentes de error. Describir un proceso complejo en términos de unas pocas variables puede ser más manejable que considerar todas las variables que interactúan dentro de él. Para lograr esto, un modelo PCA crea nuevas variables, llamadas Componentes Principales (PC), que explican la mayor parte de la actividad en el proceso. Las PC están etiquetadas como t0, t1, t2, etc., y t0 explica la mayor parte de la variación en el proceso. La variable que tiene el mayor efecto sobre el componente principal es la que requiere mayor investigación para reducir la variación del proceso. Las PC no están correlacionadas con otras variables y no tienen unidades de medida.
+Los modelos PCA se usan comúnmente para dos propósitos principales: 1) para reducir las dimensiones de un conjunto de datos para facilitar el análisis y 2) para identificar de manera eficiente las fuentes de error. Describir un proceso complejo en términos de unas pocas variables puede ser más manejable que considerar todas las variables que interactúan dentro de él. Para lograr esto, un modelo PCA crea nuevas variables, llamadas Componentes Principales, que explican la mayor parte de la actividad en el proceso. Las PC están etiquetadas como t0, t1, t2, etc., y t0 explica la mayor parte de la variación en el proceso. La variable que tiene el mayor efecto sobre el componente principal es la que requiere mayor investigación para reducir la variación del proceso. Las Componentes Principales no están correlacionadas con otras variables y no tienen unidades de medida.
 
 Los modelos PCA usan solo las variables de entrada del proceso y no se seleccionan objetivos de modelo al crear el modelo. Las PC sirven como una herramienta eficaz para el análisis exploratorio de datos y la detección de valores atípicos, así como para la reducción de la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Reducir las dimensiones de un conjunto de datos es particularmente útil para conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede causar inestabilidad en los modelos de regresión debido a la multicolinealidad. En tales casos, la información redundante puede inflar la varianza de las estimaciones de los parámetros y hacerlas estadísticamente insignificantes cuando, de otro modo, habrían sido significativas. En secciones posteriores, aplicaremos PCA como técnica de preprocesamiento de datos y la combinaremos con un modelo de regresión logística regularizado en L2 para resolver un problema de clasificación.""")
 

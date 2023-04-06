@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as npy
 import scipy as spy
 import streamlit as st
+import streamlit.components.v1 as components
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -117,8 +118,8 @@ def pcamodels(data,
                 ('model', LogisticRegression())]
     
 
-    # Grid de hiperparámetros evaluados
-    # =================================
+    # Grid de hiperparámetros evaluables
+    # ==================================
     param_grid = {'pca__n_components': range(1, n_components + 1)}
 
     grid = GridSearchCV(
@@ -198,16 +199,30 @@ El Análisis de Componentes Principales (PCA) es una poderosa técnica estadíst
 
 st.sidebar.markdown('<h4 class="badge badge-pill badge-primary"> <i class="bi bi-github"> imarranz </i></h4>', unsafe_allow_html=True)
 
+
+# https://codepen.io/RocktimSaikia/pen/jObbBmR
+with st.expander('Perfil de GitHub'):
+    components.html("""
+    <script type="module" src="https://unpkg.com/@rocktimsaikia/github-card@latest?module">
+    </script>
+        <div>
+            <github-card data-user="imarranz"></github-card>
+        </div>
+        """, width = 400, height = 600)
+
+
 st.title(":bar_chart: Análisis de Componentes Principales y Modelización")
 
-st.markdown("""
-EL Análisis de Componentes Principales (PCA) es una valiosa técnica de preprocesamiento en el modelado predictivo. Puede ayudar en el análisis de datos exploratorios y la detección de valores atípicos, y también reduce la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Además, PCA se usa comúnmente en conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede generar multicolinealidad e inestabilidad en los modelos de regresión. La multicolinealidad infla la varianza de las estimaciones de los parámetros, lo que puede hacer que sean estadísticamente insignificantes cuando deberían ser significativos (Kerns 2010). En esta aplicación, utilizaremos PCA como un paso de preprocesamiento y lo combinaremos con un modelo de regresión logística para abordar un problema de clasificación.
+with st.expander("EL Análisis de Componentes Principales (PCA) ..."):
 
-## Modelo PCA
+    st.markdown("""
+    EL Análisis de Componentes Principales (PCA) es una valiosa de preprocesamiento en el modelado predictivo. Puede ayudar en el análisis de datos exploratorios y la detección de valores atípicos, y también reduce la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Además, PCA se usa comúnmente en conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede generar multicolinealidad e inestabilidad en los modelos de regresión. La multicolinealidad infla la varianza de las estimaciones de los parámetros, lo que puede hacer que sean estadísticamente insignificantes cuando deberían ser significativos (Kerns 2010). En esta aplicación, utilizaremos PCA como un paso de preprocesamiento y lo combinaremos con un modelo de regresión logística para abordar un problema de clasificación.
 
-Los modelos PCA se usan comúnmente para dos propósitos principales: 1) para reducir las dimensiones de un conjunto de datos para facilitar el análisis y 2) para identificar de manera eficiente las fuentes de error. Describir un proceso complejo en términos de unas pocas variables puede ser más manejable que considerar todas las variables que interactúan dentro de él. Para lograr esto, un modelo PCA crea nuevas variables, llamadas Componentes Principales, que explican la mayor parte de la actividad en el proceso. Las PC están etiquetadas como t0, t1, t2, etc., y t0 explica la mayor parte de la variación en el proceso. La variable que tiene el mayor efecto sobre el componente principal es la que requiere mayor investigación para reducir la variación del proceso. Las Componentes Principales no están correlacionadas con otras variables y no tienen unidades de medida.
+    ## Modelo PCA
 
-Los modelos PCA usan solo las variables de entrada del proceso y no se seleccionan objetivos de modelo al crear el modelo. Las PC sirven como una herramienta eficaz para el análisis exploratorio de datos y la detección de valores atípicos, así como para la reducción de la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Reducir las dimensiones de un conjunto de datos es particularmente útil para conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede causar inestabilidad en los modelos de regresión debido a la multicolinealidad. En tales casos, la información redundante puede inflar la varianza de las estimaciones de los parámetros y hacerlas estadísticamente insignificantes cuando, de otro modo, habrían sido significativas. En secciones posteriores, aplicaremos PCA como técnica de preprocesamiento de datos y la combinaremos con un modelo de regresión logística regularizado en L2 para resolver un problema de clasificación.""")
+    Los modelos PCA se usan comúnmente para dos propósitos principales: 1) para reducir las dimensiones de un conjunto de datos para facilitar el análisis y 2) para identificar de manera eficiente las fuentes de error. Describir un proceso complejo en términos de unas pocas variables puede ser más manejable que considerar todas las variables que interactúan dentro de él. Para lograr esto, un modelo PCA crea nuevas variables, llamadas Componentes Principales, que explican la mayor parte de la actividad en el proceso. Las PC están etiquetadas como t0, t1, t2, etc., y t0 explica la mayor parte de la variación en el proceso. La variable que tiene el mayor efecto sobre el componente principal es la que requiere mayor investigación para reducir la variación del proceso. Las Componentes Principales no están correlacionadas con otras variables y no tienen unidades de medida.
+
+    Los modelos PCA usan solo las variables de entrada del proceso y no se seleccionan objetivos de modelo al crear el modelo. Las PC sirven como una herramienta eficaz para el análisis exploratorio de datos y la detección de valores atípicos, así como para la reducción de la dimensionalidad cuando el número de variables es mayor que el tamaño de la muestra (d>n). Reducir las dimensiones de un conjunto de datos es particularmente útil para conjuntos de datos con variables altamente redundantes o correlacionadas, lo que puede causar inestabilidad en los modelos de regresión debido a la multicolinealidad. En tales casos, la información redundante puede inflar la varianza de las estimaciones de los parámetros y hacerlas estadísticamente insignificantes cuando, de otro modo, habrían sido significativas. En secciones posteriores, aplicaremos PCA como técnica de preprocesamiento de datos y la combinaremos con un modelo de regresión logística regularizado en L2 para resolver un problema de clasificación.""")
 
 
 with st.form("configuración"):

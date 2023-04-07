@@ -59,9 +59,6 @@ Cuando no necesitemos este entorno podemos eliminarlo
 conda env remove --name project
 ```
 
-
-
-
 ## Datos
 
 Hay dos conjuntos de datos junto con los respectivos ficheros de configuración como ejemplo. Los dos conjuntos de datos tienen la misma estructura. Una primera variable `ID` identificado la observación con un código (`Streamlit-concurso-2023-`), una variable `GRUPO` mediante la que se asociarán las observaciones a dos grupos y un conjunto de variables (`VAR-`).

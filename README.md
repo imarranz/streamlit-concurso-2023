@@ -106,7 +106,6 @@ La aplicación funcionará con cualquier set de datos siempre que se mantenga la
 
 ![](./images/estructura-datos.png)
 
-
 ## Herramientas
 
 La planificación y la elección de las herramientas adecuadas son fundamentales en cualquier proyecto de análisis de datos o data science. Las librerías y herramientas adecuadas pueden acelerar el proceso de análisis y hacerlo más eficiente y efectivo, permitiendo a los analistas centrarse en el problema en sí y no en las tareas tediosas de manipulación y procesamiento de datos. Además, elegir las herramientas adecuadas también puede permitir la reutilización de código y facilitar la colaboración con otros miembros del equipo.
@@ -149,7 +148,7 @@ Primero pudes clonar el repositorio
 git clone https://github.com/imarranz/streamlit-concurso-2023
 ```
 
-Una vez clonado el repositorio debes crear y activar el entorno (`./environment/streamlit-concurso-2023-env.yaml`).
+Una vez clonado el repositorio debes crear y activar el entorno (`./environment/streamlit-concurso-2023-env.yaml`). Posiblemente esta aplicación funcione bien en un entorno qur ya tenga instaladas las librerías necesarías (obviamente con _Strealit_ es obligatoria) pero por reproducibilidad es conveniente usar el mismo entorno.
 
 Para lanzar una aplicación de [Streamlit](https://docs.streamlit.io/en/stable/) desde la consola con una dirección IP específica y un puerto, debes abrir la línea de comandos y navegar hasta el directorio donde se encuentra tu archivo Python que contiene la aplicación de [Streamlit](https://docs.streamlit.io/en/stable/). Luego, utiliza el siguiente comando:
 

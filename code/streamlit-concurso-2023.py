@@ -201,14 +201,15 @@ st.sidebar.markdown('<h4 class="badge badge-pill badge-primary"> <i class="bi bi
 
 
 # https://codepen.io/RocktimSaikia/pen/jObbBmR
-with st.expander('Perfil de GitHub'):
-    components.html("""
-    <script type="module" src="https://unpkg.com/@rocktimsaikia/github-card@latest?module">
-    </script>
-        <div>
-            <github-card data-user="imarranz"></github-card>
-        </div>
-        """, width = 400, height = 600)
+# Código para presentar una tarjeta de tu usuario de github
+#with st.expander('Perfil de GitHub'):
+    #components.html("""
+    #<script type="module" src="https://unpkg.com/@rocktimsaikia/github-card@latest?module">
+    #</script>
+        #<div>
+            #<github-card data-user="imarranz"></github-card>
+        #</div>
+        #""", width = 400, height = 600)
 
 
 st.title(":bar_chart: Análisis de Componentes Principales y Modelización")
